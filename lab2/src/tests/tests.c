@@ -1,8 +1,11 @@
 #include <CUnit/Basic.h>
+#include <CUnit/CUnit.h>
 #include <stdio.h>
 #include <string.h>
+#include <dlfcn.h>
 
 #include "revert_string.h"
+
 
 void testRevertString(void) {
   char simple_string[] = "Hello";
