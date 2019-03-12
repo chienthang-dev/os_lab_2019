@@ -1,20 +1,13 @@
-revert: main.с revert_string.с
-    cc -o revert main.c revert_string.c
-    
-    cc -o swap main.c swap.c
-    
-gcc -c revert_string/revert_string.c -o bin/static/revert_string.o
-gcc -c -fPIC revert_string/revert_string.c -o bin/shared/revert_string.o
-ar rcs bin/static/librevert_string.a bin/static/revert_string.o
-gcc   bin/main.o  -Lbin/static -lrevert_string -o bin/statically-linked
-./bin/statically-linked
+all: revert
 
-gcc -shared bin/shared/revert_string.o -o bin/shared/librevert_string.so
-gcc bin/main.o -Lbin/shared -lrevert_string -o bin/use-shared-library
+revert: main.o revert_string.o
+	gcc -o revert main.o revert_string.o
 
-LD_LIBRARY_PATH=$(pwd)/bin/shared bin/use-shared-library "test word"
-
-ln revert_string/revert_string.h tests/revert_string.h
-sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev
-gcc -Wall -o tests/tests tests/tests.c -Lbin/shared -lrevert_string -lcunit
-export LD_LIBRARY_PATH=bin/shared; ./tests/tests
+main.o: main.c
+	gcc -c -o main.o main.c
+	
+revert_string.o: revert_string.c
+	gcc -c -o revert_string.o revert_string.c
+	
+clean:
+	rm -rf *.o revert
