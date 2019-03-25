@@ -1,0 +1,12 @@
+task 1:
+gcc -c -o find_min_max.o find_min_max.c
+gcc -c -o utils.o utils.c
+gcc -c -o sequential_min_max.o sequential_min_max.c
+./min_max 5 10
+./min_max 1 4
+./min_max 10 4
+
+task 4:
+./sequential_min_max 5 4
+./parallel_min_max --seed 444 --array_size 10 --pnum 4
+./parallel_min_max --seed 444 --array_size 10 --pnum 4 -f
