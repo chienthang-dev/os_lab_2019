@@ -1,20 +1,19 @@
 CC=gcc
-CFLAGS=-I.
-all : tcpcli tcpserv udpcli udpserv
-tcp : tcpcli tcpserv
-udp : udpcli udpserv
+CFLAGS=-I. -std=c11 -pthread
 
-tcpcli : 
-	$(CC) -o tcpcli tcpclient.c $(CFLAGS)
+all: tcpclient tcpserver udpclient udpserver
 
-tcpserv : 
-	$(CC) -o tcpserv tcpserver.c $(CFLAGS)
-	
-udpcli : 
-	$(CC) -o udpcli udpclient.c $(CFLAGS)
+tcpclient: tcpclient.c
+	$(CC) -o tcpclient tcpclient.c $(CFLAGS)
 
-udpserv : 
-	$(CC) -o udpserv udpserver.c $(CFLAGS)
+tcpserver: tcpserver.c
+	$(CC) -o tcpserver tcpserver.c $(CFLAGS)
 
-clean :
-	rm -f tcpcli tcpserv udpcli udpserv
+udpclient: udpclient.c
+	$(CC) -o udpclient udpclient.c $(CFLAGS)
+
+udpserver: udpserver.c
+	$(CC) -o udpserver udpserver.c $(CFLAGS)
+
+clean:
+	rm tcpclient tcpserver udpclient udpserver
